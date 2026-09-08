@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "pym:block/pym_particle_generator" }
+  }
+}
