@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NSN",
+    "EBE",
+    "NSN"
+  ],
+  "key": {
+    "N": { "item": "minecraft:netherite_block" },
+    "S": { "item": "minecraft:nether_star" },
+    "E": { "item": "minecraft:end_crystal" },
+    "B": { "item": "minecraft:beacon" }
+  },
+  "result": {
+    "item": "pym:pym_particle_generator"
+  }
+}
