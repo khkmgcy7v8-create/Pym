@@ -24,8 +24,8 @@ public class PymParticleGeneratorBlockEntity extends BlockEntity {
     public static final int ENERGY_PER_MB = 1_000;
     public static final int DISC_COST_MB = 250;
 
-    private final EnergyStorage energy = new EnergyStorage(ENERGY_CAPACITY, 100_000, 0);
-    private LazyOptional<EnergyStorage> energyOptional = LazyOptional.of(() -> energy);
+    private final StoredEnergy energy = new StoredEnergy(ENERGY_CAPACITY, 100_000, 0);
+    private LazyOptional<StoredEnergy> energyOptional = LazyOptional.of(() -> energy);
 
     private int redParticlesMb;
     private int blueParticlesMb;
@@ -86,10 +86,10 @@ public class PymParticleGeneratorBlockEntity extends BlockEntity {
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        energy.receiveEnergy(tag.getInt("Energy"), false);
-        redParticlesMb = tag.getInt("RedParticles");
-        blueParticlesMb = tag.getInt("BlueParticles");
-        redMode = tag.getBoolean("RedMode");
+        energy.setEnergy(tag.getInt("Energy"));
+        redParticlesMb = Math.min(TANK_CAPACITY_MB, Math.max(0, tag.getInt("RedParticles")));
+        blueParticlesMb = Math.min(TANK_CAPACITY_MB, Math.max(0, tag.getInt("BlueParticles")));
+        redMode = !tag.contains("RedMode") || tag.getBoolean("RedMode");
     }
 
     @Override
@@ -108,5 +108,15 @@ public class PymParticleGeneratorBlockEntity extends BlockEntity {
     public void reviveCaps() {
         super.reviveCaps();
         energyOptional = LazyOptional.of(() -> energy);
+    }
+
+    private static final class StoredEnergy extends EnergyStorage {
+        private StoredEnergy(int capacity, int maxReceive, int maxExtract) {
+            super(capacity, maxReceive, maxExtract);
+        }
+
+        private void setEnergy(int amount) {
+            this.energy = Math.min(capacity, Math.max(0, amount));
+        }
     }
 }
