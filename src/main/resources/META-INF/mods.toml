@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="pym"
+version="${version}"
+displayName="Pym"
+authors="Rei Rei"
+description='''
+Standalone Pym particle technology for Forge 1.20.1 using Pehkui for entity scaling.
+'''
+
+[[dependencies.pym]]
+modId="forge"
+mandatory=true
+versionRange="[47.3,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.pym]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.pym]]
+modId="pehkui"
+mandatory=true
+versionRange="[3.8.2,)"
+ordering="AFTER"
+side="BOTH"
